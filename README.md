@@ -12,7 +12,7 @@ on this project.
 <strong>To be able to successfully run the application, Python dependencies must be installed.</strong>
 <br><br>
 1. Install Python 3.6 or later. The download can be found <a href="https://www.python.org/downloads/" target="_blank">here</a>.
-   * To see your latest version of python execute the commandline command: `/path/to/python3/directory/python3 -V`
+   * To see your latest version of python execute the command-line command: `/path/to/python3/directory/python3 -V`
 2. Install the project dependencies.
    * To download the project dependencies, execute the command: `/path/to/python3/directory/pip3 install -r /path/to/project/directory/requirements.txt`
 
