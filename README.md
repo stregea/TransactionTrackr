@@ -77,10 +77,10 @@ Otherwise, if the password is incorrect, the application will not generate and u
 
 ## Future Features
 
-<strong>Admin</strong>
+<strong>Admin</strong><br>
 This feature will allow any user that is deemed an admin, to directly interact with the database and user accounts.
 
-<strong>Charts</strong>
+<strong>Charts</strong><br>
 This feature will add more visualizations into the application. Currently, 'Bar Charts' are supported and 'Pie Charts' are implemented,
 but I would like to implement the 'Pie Chart' and other types charts into the application to help better visualize user data.
 
