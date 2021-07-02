@@ -19,8 +19,8 @@ def setup_args() -> Namespace:
     parser.add_argument('-c', '--show_console', help='display information on to the console.', action='store_true')
     parser.add_argument('-v', '--show_visual', help='display information from a visualization perspective.',
                         action='store_true')
-    parser.add_argument('-u', '--username', help='username')
-    parser.add_argument('-p', '--password', help='password')
+    parser.add_argument('-u', '--username', help='the username to sign in with.')
+    parser.add_argument('-p', '--password', help='the password to sign in with.')
     return parser.parse_args()
 
 
