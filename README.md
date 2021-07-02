@@ -56,14 +56,25 @@ Currently, only ESL Federal Credit Union and Apple Card's are the only account t
 
 To upload data, you will have to export `.csv` files from either account type, and place the files within the proper subdirectories.
 
-- Apple Card export information will need to be placed within `/path/to/project/directory/Upload/Apple/`.
+- Apple Card statements will need to be placed within `/path/to/project/directory/Upload/Apple/`.
 
-- Similarly, ESL export information will need to be placed within `/path/to/project/directory/Upload/ESL/`.
+- Similarly, ESL Federal Credit Union statements will need to be placed within `/path/to/project/directory/Upload/ESL/`.
 
 Once the files have been placed into the `Upload` directory, select the 'upload' option from the main menu. 
 
 Upon choosing the 'upload' option, the files are then uploaded to the database allowing for full use of the application.
 
+## Downloading Statements Required For Upload
+<strong>Instructions on how to export Apple Card statements can be found <a href="https://support.apple.com/en-us/HT211236" target="_blank">here</a>.</strong><br>
+
+<strong>Instructions on how to Export ESL Federal Credit Union Statements:</strong>
+1. Log into your ESL Account
+2. Select your Savings or your Checking account.
+3. Select or customize the date range within the selected account.
+4. Click Export.
+    - A popup window will then display.
+    - Make sure 'Excel (.csv)' is selected.
+5. Click 'Export' once again within the pop-up.
 
 ## Uploading Dummy Data
 <strong>If you don't have an ESL Federal Credit Union account, or an Apple Card account, the ability to upload data still exists.</strong>
