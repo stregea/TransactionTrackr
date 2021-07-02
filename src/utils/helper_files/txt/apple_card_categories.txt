@@ -1,0 +1,9 @@
+Health
+Food and Drink
+Grocery
+Shopping
+Travel
+Transportation
+Services
+Entertainment
+Other

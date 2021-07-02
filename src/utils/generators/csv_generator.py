@@ -1,0 +1,167 @@
+"""
+Convert Receipt exports into Transaction CSVs.
+"""
+import csv
+import os
+import random
+from datetime import datetime, timedelta
+from utils import globals as _globals
+from utils.enums import month_string_to_enum
+from utils.dates.dates import get_dates
+from utils.print import print_message
+from utils.logger.logger import log
+from objects.user.User import User
+from objects.user.Currency import get_currency_acronym
+
+MIN_TRANSACTIONS = 20
+MAX_TRANSACTIONS = 100
+MIN_SPENT = 0.00
+MAX_SPENT = 250.00
+
+
+def random_date(start_date: str, end_date: str):
+    """
+    This function will return a random datetime between two datetime
+    objects.
+    """
+    dt_start = datetime.strptime(start_date, "%Y-%m-%d")
+    dt_end = datetime.strptime(end_date, "%Y-%m-%d")
+
+    delta = dt_end - dt_start
+    int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
+    random_second = random.randrange(int_delta)
+
+    random_day = dt_start + timedelta(seconds=random_second)
+
+    return f"{random_day.month:02d}/{random_day.day:02d}/{random_day.year}"
+
+
+def generate_apple_files(user: User, year: str) -> None:
+    """
+    Generate one year's worth of transaction data for the Apple Card.
+    :param user: The current user requesting to generate new data.
+    :param year: The year to generate data for.
+    """
+    for m in _globals.months:
+        # Convert the month string to an enum
+        month = month_string_to_enum(m)
+
+        # Get the starting and end dates for that month
+        dates = get_dates(month, year)
+
+        # Determine a random number of transactions performed for that month
+        transaction_count = random.randint(MIN_TRANSACTIONS, MAX_TRANSACTIONS)
+
+        # Create a list of random transaction dates then sort.
+        list_of_days = [random_date(dates[0], dates[1]) for x in range(transaction_count)]
+
+        # Create the name of the file
+        name_of_file = f"Apple Card Transactions - {_globals.months[month.name]} {year}.csv"
+
+        # Select the user-specified currency acronym
+        type_of_currency = get_currency_acronym(user.currency_id)
+
+        # The header to be displayed at the top of the csv file
+        csv_header = ["Transaction", "Clearing Date", "Description", "Merchant", "Category", "Type",
+                      f"Amount ({type_of_currency})"]
+
+        # Open the new csv file.
+        with open(f"{_globals.APPLE_UPLOAD_FOLDER}/{name_of_file}", 'w', newline='') as file:
+            writer = csv.writer(file, quoting=csv.QUOTE_NONNUMERIC)
+            writer.writerow(csv_header)
+
+            # Write a randomly generated transaction in descending order from the randomly generated list of days
+            for day in sorted(list_of_days, reverse=True):
+                transaction_date = clearing_date = day
+                description = "This information was randomly generated"
+                merchant = random.choice(
+                    open(os.path.abspath('../src/utils/helper_files/txt/companies.txt')).readlines()).strip('\n')
+                category = random.choice(
+                    open(os.path.abspath('../src/utils/helper_files/txt/apple_card_categories.txt')).readlines()).strip(
+                    '\n')
+                type = "Purchase"
+                amount = f"{round(random.uniform(MIN_SPENT, MAX_SPENT), 2):.2f}"
+
+                row = [transaction_date, clearing_date, description, merchant, category, type, amount]
+                writer.writerow(row)
+
+    log(f"User:{user.id} has created randomly generated Apple Card information.")
+
+
+def generate_esl_files(user: User, year: str) -> None:
+    dt = datetime.now().date()
+    time = str(datetime.now().time()).split(".")[0]
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+                'V', 'W', 'X', 'Y', 'Z']
+
+    # Create the name of the file
+    name_of_file = f"Export-{dt.month:02d}{dt.day:02d}{dt.year}-{time}.csv"
+
+    member_number = user.id
+    account_id = random.randint(1000000, 9999999999)
+
+    list_of_days = []
+    for m in _globals.months:
+        # Convert the month string to an enum
+        month = month_string_to_enum(m)
+
+        # Get the starting and end dates for that month
+        dates = get_dates(month, year)
+
+        # Determine a random number of transactions performed for that month
+        transaction_count = random.randint(MIN_TRANSACTIONS, MAX_TRANSACTIONS)
+
+        # Create a list of random transaction dates then sort.
+        for x in range(transaction_count):
+            list_of_days.append(random_date(dates[0], dates[1]))
+
+    # Open the new csv file.
+    with open(f"{_globals.ESL_UPLOAD_FOLDER}/{name_of_file}", 'w', newline='') as file:
+        writer = csv.writer(file, quoting=csv.QUOTE_NONNUMERIC)
+
+        # Dummy information that is written at the top of the ESL export.
+        writer.writerow(["Account Name : AutoGenerated"])
+        writer.writerow([f"Account Number : {member_number}{random.choice(alphabet)}{account_id}"])
+        writer.writerow([f"Date Range : {sorted(list_of_days)[0]}-{sorted(list_of_days)[-1]}"])
+
+        # The header to be displayed at the top of the csv file
+        csv_header = ["Transaction Number", "Date", "Description", "Memo", "Amount Debit", "Amount Credit", "Balance",
+                      "Check Number", "Fees"]
+        writer.writerow(csv_header)
+
+        # Write a randomly generated transaction in descending order from the randomly generated list of days
+        for d in sorted(list_of_days, reverse=True):
+            date = d.split('/')
+
+            transaction_number = f"{date[2]}{date[0]}{date[1]}{random.randint(1000000, 9999999999)}"
+            date = d
+            description = "This information was randomly generated"
+            memo = random.choice(
+                open(os.path.abspath('../src/utils/helper_files/txt/companies.txt')).readlines()).strip('\n')
+            # Want to use negatives for money spent (amount_debit/amount_credit) in this csv
+            amount_debit = f"{-round(random.uniform(MIN_SPENT, MAX_SPENT), 2):.2f}"
+            amount_credit = None
+            balance = f"{round(random.uniform(0., 5000.), 2):.2f}"
+            check_number = None
+            fee = None
+            row = [transaction_number, date, description, memo, amount_debit,
+                   amount_credit, balance, check_number, fee]
+
+            writer.writerow(row)
+
+    log(f"User:{user.id} has created randomly generated ESL information.")
+
+
+def generate_transaction_files(user: User):
+    """
+    Generate random csv files for ESL and Apple transactions.
+    """
+    # Generate 1 year's worth of data given a year between 2000-current.
+    year = str(random.randint(2000, datetime.now().year))
+
+    print_message(f"Generating data for the year '{year}'...")
+
+    generate_apple_files(user, year)
+    generate_esl_files(user, year)
+
+    print_message("Randomly generated csv files have been created and are ready to be uploaded.")
