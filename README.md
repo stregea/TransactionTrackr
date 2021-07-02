@@ -31,7 +31,7 @@ optional arguments:
                         the password to sign in with.
 ```
 
-###Side Note On Parameters: 
+<strong>Side Note On Parameters...</strong><br>
 If `-u` or `-p` are not detected, or a bad sign-in is performed, you will be taken to the main sign in menu.
 
 The parameters `-c` and `-v` are recommended for use since both options will determine whether to actually display the data.
@@ -86,4 +86,4 @@ but I would like to implement the 'Pie Chart' and other types charts into the ap
 
 
 ## Recommendations
-If you beleive that there are any improvements that need to be made or want to see certain features added, feel free to <a href="https://samueltregea.com/contact/" target="_blank"> contact me</a>.
+If you believe that there are any improvements that need to be made or want to see certain features added, feel free to <a href="https://samueltregea.com/contact/" target="_blank"> contact me</a>.
