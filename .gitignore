@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Don't include these project directories or any contents within
+/Upload/
+/Users/
+
+# Don't include these files.
+/receipt.db
+/receeipt.log
