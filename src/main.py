@@ -88,7 +88,6 @@ def main() -> None:
                 user_has_signed_out = Menu(user=user, show_console=show_console_information, show_visual=show_visual_information).run()
 
     except Exception as e:
-        print(e)
         log(str(e), level="critical")
         log(traceback.format_exc(), level="critical")
         exit(-1)
