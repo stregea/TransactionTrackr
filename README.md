@@ -1,8 +1,11 @@
 # TransactionTrackr
-A Python application that keeps track and visualize your transactions across multiple accounts.
+A Python application that keeps track and visualizes your transactions across multiple accounts.
 
 Eventually on <a href="https://www.samueltregea.com/projects/" target="_blank">my website</a> there will be a video demonstration
 on this project.
+
+<strong>Note on accounts...</strong><br>
+- Currently only ESL and Apple Card accounts are supported.
 
 
 ## Requirements
@@ -32,11 +35,11 @@ optional arguments:
 ```
 
 <strong>Side Note On Parameters...</strong><br>
-If `-u` or `-p` are not detected, or a bad sign-in is performed, you will be taken to the main sign in menu.
+- If `-u` or `-p` are not detected, or a bad sign-in is performed, you will be taken to the main sign in menu.
 
-The parameters `-c` and `-v` are recommended for use since both options will determine whether to actually display the data.
+- The parameters `-c` and `-v` are recommended for use since both options will determine whether to actually display the data.
 
-The order of the parameters does not matter.
+- The order of the parameters does not matter.
 
 
 ## Run The Application
