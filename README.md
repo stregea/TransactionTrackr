@@ -47,7 +47,7 @@ To run the program, execute the following command-line command:
 `/path/to/python3/directory/python3 /path/to/project/directory/main.py -c -v`
 
 If your account has already been created, execute the command-line command:<br>
-`/path/to/python3/directory/python3 /path/to/project/directory/main.py -c -v -u your_username -p your_password`<br>
+`/path/to/python3/directory/python3 /path/to/project/directory/src/main.py -c -v -u your_username -p your_password`<br>
 This command will automatically sign you in, allowing you to skip the sign-in step.
 
 
