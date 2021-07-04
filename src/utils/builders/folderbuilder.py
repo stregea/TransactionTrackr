@@ -71,7 +71,8 @@ def create_user_folder(user: User) -> None:
     if not user.exists_in_db():
         raise UserNotFound
 
-    user_directory = f"{_globals.USERS_FOLDER}/users/{user.id}"
+    users_directory = os.path.join(_globals.USERS_FOLDER, 'users')
+    current_user_directory = os.path.join(users_directory, str(user.id))
 
     # create parent directory if it doesn't exist
     if not os.path.isdir(_globals.USERS_FOLDER):
@@ -79,18 +80,18 @@ def create_user_folder(user: User) -> None:
         log(f"Directory '{_globals.USERS_FOLDER}' has been created.", level="info")
 
     # create user directory if it doesn't exist.
-    if not os.path.isdir(f"{_globals.USERS_FOLDER}/users"):
-        os.mkdir(f"{_globals.USERS_FOLDER}/users")
-        log(f"Directory '{_globals.USERS_FOLDER}/users' has been created.", level="info")
+    if not os.path.isdir(users_directory):
+        os.mkdir(users_directory)
+        log(f"Directory '{users_directory}' has been created.", level="info")
 
     # create the user folder
-    if not os.path.isdir(user_directory):
-        os.mkdir(user_directory)
-        log(f"Directory '{user_directory}' has been created.", level="info")
+    if not os.path.isdir(current_user_directory):
+        os.mkdir(current_user_directory)
+        log(f"Directory '{current_user_directory}' has been created.", level="info")
 
     # Create the accepted accounts directories (Apple, ESL, etc.)
     for account in _globals.ACCOUNTS:
-        path = f"{user_directory}/{account}"
+        path = os.path.join(current_user_directory, account)
         if not os.path.isdir(path):
             os.mkdir(path)
             log(f"Directory '{path}' has been created.", level="info")
