@@ -2,9 +2,12 @@ import os
 from utils.enums import Months
 
 # Database path
-DATABASE = os.path.abspath('../receipt.db')
+DATABASE = os.path.abspath('../transactionstrackr.db')
 
-# csv containing the currencies this application can support
+# The log file containing the pertinent information about the program
+LOG_FILE = os.path.abspath('../transactionstrackr.log')
+
+# CSV file containing the currencies this application can support
 CURRENCIES = os.path.abspath('../src/utils/helper_files/csv/currencies.csv')
 
 # The folder the user will upload their files to
@@ -21,9 +24,7 @@ FOLDER_UPLOADS = [
 # The folder that will hold all of the users data
 USERS_FOLDER = os.path.abspath('../Users')
 
-# The log containing the pertinent information about the program
-LOG_FILE = os.path.abspath('../receipt.log')
-
+# Command used to create the 'Currencies' table
 CREATE_CURRENCY_TABLE = '''CREATE TABLE IF NOT EXISTS Currencies(
                             id integer PRIMARY KEY AUTOINCREMENT,
                             Acronym text NOT NULL,
@@ -31,6 +32,7 @@ CREATE_CURRENCY_TABLE = '''CREATE TABLE IF NOT EXISTS Currencies(
                             Symbol text
                         );'''
 
+# Command used to create the 'Users' table
 CREATE_USER_TABLE = '''CREATE TABLE IF NOT EXISTS Users(
                         id integer PRIMARY KEY AUTOINCREMENT,
                         Username text NOT NULL,
@@ -44,6 +46,7 @@ CREATE_USER_TABLE = '''CREATE TABLE IF NOT EXISTS Users(
                         FOREIGN KEY(Currency_id) references Currencies(id)
                     );'''
 
+# Command used to create the 'CSVFiles' table
 # CREATE_CSV_TABLE = '''CREATE TABLE IF NOT EXISTS CSVFiles(
 #                         id integer PRIMARY KEY AUTOINCREMENT,
 #                         Name text NOT NULL,
@@ -51,7 +54,7 @@ CREATE_USER_TABLE = '''CREATE TABLE IF NOT EXISTS Users(
 #                         FOREIGN KEY(User_id) references Users(id)
 #                     );'''
 
-
+# Command used to create the 'AppleReceipts' table
 CREATE_APPLE_TABLE = '''CREATE TABLE IF NOT EXISTS AppleReceipts(
                           id integer PRIMARY KEY AUTOINCREMENT,
                           Transaction_Date text NOT NULL,
@@ -68,6 +71,7 @@ CREATE_APPLE_TABLE = '''CREATE TABLE IF NOT EXISTS AppleReceipts(
                           FOREIGN KEY(User_id) references Users(id)
                         );'''
 
+# Command used to create the 'ESLReceipts' table
 CREATE_ESL_TABLE = '''CREATE TABLE IF NOT EXISTS ESLReceipts(
                         id integer PRIMARY KEY AUTOINCREMENT,
                         Transaction_Number text NOT NULL,
@@ -86,6 +90,7 @@ CREATE_ESL_TABLE = '''CREATE TABLE IF NOT EXISTS ESLReceipts(
                         FOREIGN KEY(User_id) references Users(id)
                     );'''
 
+# Command used to create the 'Transactions' table
 CREATE_TRANSACTIONS_TABLE = '''CREATE TABLE IF NOT EXISTS Transactions(
                                 id integer PRIMARY KEY AUTOINCREMENT, 
                                 Date text NOT NULL,
