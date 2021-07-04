@@ -132,6 +132,5 @@ dmypy.json
 /Upload/
 /Users/
 
-# Don't include these files.
-/receipt.db
-/receeipt.log
+# Don't include database files.
+*.db
