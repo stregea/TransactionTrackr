@@ -66,7 +66,7 @@ def generate_apple_files(user: User, year: str) -> None:
                       f"Amount ({type_of_currency})"]
 
         # Open the new csv file.
-        with open(f"{_globals.APPLE_UPLOAD_FOLDER}/{name_of_file}", 'w', newline='') as file:
+        with open(rf'{os.path.join(_globals.APPLE_UPLOAD_FOLDER, name_of_file)}', 'w', newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_NONNUMERIC)
             writer.writerow(csv_header)
 
@@ -95,8 +95,7 @@ def generate_esl_files(user: User, year: str) -> None:
                 'V', 'W', 'X', 'Y', 'Z']
 
     # Create the name of the file
-    name_of_file = f"Export-{dt.month:02d}{dt.day:02d}{dt.year}-{time}.csv"
-
+    name_of_file = f"Export-{dt.month:02d}{dt.day:02d}{dt.year}-{time.replace(':', '')}"
     member_number = user.id
     account_id = random.randint(1000000, 9999999999)
 
@@ -116,7 +115,7 @@ def generate_esl_files(user: User, year: str) -> None:
             list_of_days.append(random_date(dates[0], dates[1]))
 
     # Open the new csv file.
-    with open(f"{_globals.ESL_UPLOAD_FOLDER}/{name_of_file}", 'w', newline='') as file:
+    with open(rf'{os.path.join(_globals.ESL_UPLOAD_FOLDER, name_of_file)}', 'w', newline='') as file:
         writer = csv.writer(file, quoting=csv.QUOTE_NONNUMERIC)
 
         # Dummy information that is written at the top of the ESL export.
