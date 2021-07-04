@@ -13,7 +13,7 @@ def startup() -> None:
     db_updated = False
     file = _globals.CURRENCIES
 
-    with open(file, newline='') as csvf:
+    with open(file, newline='', encoding='utf-8') as csvf:
         rows = list(csv.reader(csvf))
         for i in range(1, len(rows)):
             currency = Currency(db, rows[i])
