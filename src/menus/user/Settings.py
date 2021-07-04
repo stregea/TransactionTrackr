@@ -1,4 +1,5 @@
 import shutil
+import os
 from objects.user.User import User
 from objects.user.Currency import get_currency, get_currency_from_input
 from objects.threads.UploadThread import UploadThread
@@ -19,7 +20,7 @@ class Settings:
 
     def __init__(self, user: User):
         self.user = user
-        self.user_directory = f"{USERS_FOLDER}/users/{self.user.id}"
+        self.user_directory = os.path.join(USERS_FOLDER, os.path.join('users', str(self.user.id)))
 
     def user_can_update_information(self) -> bool:
         """
